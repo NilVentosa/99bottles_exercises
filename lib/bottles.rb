@@ -20,7 +20,7 @@ class Bottles
     high.downto(low).map { |num| verse num }.join("\n")
   end
 
-  def songs
+  def song
     verses(99, 0)
   end
 end
