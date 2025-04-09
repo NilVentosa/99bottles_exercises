@@ -2,10 +2,10 @@ class Bottles
   def verse(number)
     bottle_number = BottleNumber.new(number)
 
-    "#{bottle_number.quantity.capitalize} #{bottle_number.container} of beer on the wall, " \
-    "#{bottle_number.quantity} #{bottle_number.container} of beer.\n" \
-    "#{bottle_number.action}, " \
-    "#{bottle_number.successor.quantity} #{bottle_number.successor.container} of beer on the wall.\n"
+    "#{bottle_number} of beer on the wall, ".capitalize +
+      "#{bottle_number} of beer.\n" \
+      "#{bottle_number.action}, " \
+      "#{bottle_number.successor} of beer on the wall.\n"
   end
 
   def verses(high, low)
@@ -22,6 +22,10 @@ class BottleNumber
 
   def initialize(number)
     @number = number
+  end
+
+  def to_s
+    "#{quantity} #{container}"
   end
 
   def container
@@ -50,7 +54,7 @@ class BottleNumber
 
   def action
     if number.zero?
-      "Go to the store and buy some more"
+      'Go to the store and buy some more'
     else
       "Take #{pronoun} down and pass it around"
     end
