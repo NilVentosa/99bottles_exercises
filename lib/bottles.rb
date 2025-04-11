@@ -1,4 +1,12 @@
 class Bottles
+  def song
+    verses(99, 0)
+  end
+
+  def verses(high, low)
+    high.downto(low).map { |number| verse number }.join("\n")
+  end
+
   def verse(number)
     bottle_number = BottleNumber.for(number)
 
@@ -7,32 +15,26 @@ class Bottles
       "#{bottle_number.action}, " \
       "#{bottle_number.successor} of beer on the wall.\n"
   end
-
-  def verses(high, low)
-    high.downto(low).map { |number| verse number }.join("\n")
-  end
-
-  def song
-    verses(99, 0)
-  end
 end
 
 class BottleNumber
-  attr_reader :number
-
-  def initialize(number)
-    @number = number
-  end
-
   def self.for(number)
     case number
     when 0
       BottleNumber0
     when 1
       BottleNumber1
+    when 6
+      BottleNumber6
     else
       BottleNumber
     end.new(number)
+  end
+
+  attr_reader :number
+
+  def initialize(number)
+    @number = number
   end
 
   def to_s
@@ -70,7 +72,7 @@ class BottleNumber0 < BottleNumber
   end
 
   def successor
-    BottleNumber.new(99)
+    BottleNumber.for(99)
   end
 end
 
@@ -81,5 +83,15 @@ class BottleNumber1 < BottleNumber
 
   def pronoun
     'it'
+  end
+end
+
+class BottleNumber6 < BottleNumber
+  def container
+    'sixpack'
+  end
+
+  def quantity
+    '1'
   end
 end
